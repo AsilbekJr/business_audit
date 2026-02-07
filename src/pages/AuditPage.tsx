@@ -118,7 +118,7 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
                                     id="field"
                                     placeholder="Masalan: O'quv markazi, Kiyim do'koni..."
                                     value={formData.field || ''}
-                                    onChange={(e) => updateField('field', e.target.value)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('field', e.target.value)}
                                     className="h-12 text-lg bg-background/50"
                                 />
                             </div>
@@ -187,7 +187,7 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
                                     id="platform"
                                     placeholder="Instagram, Facebook, Google..."
                                     value={formData.platform || ''}
-                                    onChange={(e) => updateField('platform', e.target.value)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('platform', e.target.value)}
                                     className="h-12 bg-background/50"
                                 />
                             </div>
@@ -203,7 +203,7 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
                                     type="number"
                                     placeholder="10000"
                                     value={formData.monthlyRevenueGoal || ''}
-                                    onChange={(e) => updateField('monthlyRevenueGoal', Number(e.target.value))}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('monthlyRevenueGoal', Number(e.target.value))}
                                     className="h-12 text-lg bg-background/50 font-mono"
                                 />
                             </div>
@@ -214,7 +214,7 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
                                     type="number"
                                     placeholder="60"
                                     value={formData.avgCheck || ''}
-                                    onChange={(e) => updateField('avgCheck', Number(e.target.value))}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('avgCheck', Number(e.target.value))}
                                     className="h-12 text-lg bg-background/50 font-mono"
                                 />
                             </div>
@@ -225,7 +225,7 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
                                     type="number"
                                     placeholder="30"
                                     value={formData.conversionRate || ''}
-                                    onChange={(e) => updateField('conversionRate', Number(e.target.value))}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('conversionRate', Number(e.target.value))}
                                     className="h-12 text-lg bg-background/50 font-mono"
                                 />
                             </div>
