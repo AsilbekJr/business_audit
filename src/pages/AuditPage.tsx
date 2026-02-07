@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
+import { Progress } from '../components/ui/progress';
+import { Card, CardContent } from '../components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
 import type { AuditInputs } from '../logic/auditCalculator';
@@ -35,8 +39,6 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
   };
 
   const handleSubmit = () => {
-    // Validate required fields if necessary
-    // For now assuming all filled or defaults are fine
     onSubmit(formData as AuditInputs);
   };
 
@@ -44,196 +46,211 @@ export const AuditPage = ({ onSubmit }: AuditPageProps) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
+  const progressValue = ((currentStep) / steps.length) * 100;
+
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto space-y-8">
       {/* Progress Steps */}
-      <div className="flex items-center justify-between mb-8 relative">
-        <div className="absolute left-0 top-1/2 w-full h-1 bg-white/5 -z-10 rounded-full" />
-        <div 
-            className="absolute left-0 top-1/2 h-1 bg-primary -z-10 rounded-full transition-all duration-500"
-            style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
-        />
-        
-        {steps.map((step) => (
-            <div key={step.id} className="flex flex-col items-center bg-background px-2">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors duration-300 ${
-                    currentStep >= step.id ? 'border-primary bg-primary text-white' : 'border-white/20 bg-surface text-gray-500'
-                }`}>
-                    {currentStep > step.id ? <Check className="w-5 h-5" /> : step.id}
+      <div className="space-y-4">
+        <Progress value={progressValue} className="h-2" />
+        <div className="flex justify-between px-1">
+             {steps.map((step) => (
+                <div key={step.id} className={`flex items-center gap-2 text-sm font-medium ${currentStep >= step.id ? 'text-primary' : 'text-muted-foreground'}`}>
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${currentStep >= step.id ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'}`}>
+                        {currentStep > step.id ? <Check className="w-3 h-3" /> : step.id}
+                    </div>
+                    <span className="hidden md:inline">{step.title}</span>
                 </div>
-                <span className={`text-xs mt-2 font-medium ${currentStep >= step.id ? 'text-white' : 'text-gray-500'}`}>
-                    {step.title}
-                </span>
-            </div>
-        ))}
+             ))}
+        </div>
       </div>
 
       {/* Form Content */}
-      <div className="glass-card min-h-[400px]">
-        <AnimatePresence mode="wait">
-            <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-6"
-            >
-                <div className="mb-6">
-                    <h2 className="text-2xl font-bold">{steps[currentStep - 1].title}</h2>
-                    <p className="text-gray-400">{steps[currentStep - 1].desc}</p>
-                </div>
+      <Card className="glass-card min-h-[400px]">
+        <CardContent className="p-8">
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={currentStep}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-6"
+                >
+                    <div className="mb-6 space-y-1">
+                        <h2 className="text-2xl font-bold tracking-tight">{steps[currentStep - 1].title}</h2>
+                        <p className="text-muted-foreground">{steps[currentStep - 1].desc}</p>
+                    </div>
 
-                {currentStep === 1 && (
-                    <div className="space-y-4">
-                        <div className="space-y-2">
-                            <label className="text-sm text-gray-400">Biznes egasimisiz?</label>
-                            <div className="flex gap-4">
-                                <Button 
-                                    type="button"
-                                    variant={formData.isBusinessOwner ? 'primary' : 'secondary'} 
-                                    onClick={() => updateField('isBusinessOwner', true)}
-                                    className="flex-1"
+                    {currentStep === 1 && (
+                        <div className="space-y-6">
+                            <div className="space-y-3">
+                                <Label className="text-base">Biznes egasimisiz?</Label>
+                                <RadioGroup 
+                                    value={formData.isBusinessOwner ? "yes" : "no"} 
+                                    onValueChange={(val) => updateField('isBusinessOwner', val === "yes")}
+                                    className="grid grid-cols-2 gap-4"
                                 >
-                                    Ha
-                                </Button>
-                                <Button 
-                                    type="button"
-                                    variant={!formData.isBusinessOwner ? 'primary' : 'secondary'} 
-                                    onClick={() => updateField('isBusinessOwner', false)}
-                                    className="flex-1"
-                                >
-                                    Yo'q
-                                </Button>
+                                    <div>
+                                        <RadioGroupItem value="yes" id="owner-yes" className="peer sr-only" />
+                                        <Label
+                                            htmlFor="owner-yes"
+                                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer text-center"
+                                        >
+                                            Ha
+                                        </Label>
+                                    </div>
+                                    <div>
+                                        <RadioGroupItem value="no" id="owner-no" className="peer sr-only" />
+                                        <Label
+                                            htmlFor="owner-no"
+                                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer text-center"
+                                        >
+                                            Yo'q
+                                        </Label>
+                                    </div>
+                                </RadioGroup>
+                            </div>
+                            
+                            <div className="space-y-3">
+                                <Label htmlFor="field">Biznesingiz qaysi sohada?</Label>
+                                <Input 
+                                    id="field"
+                                    placeholder="Masalan: O'quv markazi, Kiyim do'koni..."
+                                    value={formData.field || ''}
+                                    onChange={(e) => updateField('field', e.target.value)}
+                                    className="h-12 text-lg bg-background/50"
+                                />
                             </div>
                         </div>
-                        <Input 
-                            label="Biznesingiz qaysi sohada?" 
-                            placeholder="Masalan: O'quv markazi, Kiyim do'koni..."
-                            value={formData.field || ''}
-                            onChange={(e) => updateField('field', e.target.value)}
-                        />
-                    </div>
-                )}
+                    )}
 
-                {currentStep === 2 && (
-                    <div className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">CRM tizimi bormi?</label>
-                                <div className="flex gap-2">
-                                    <Button 
-                                        type="button"
-                                        variant={formData.hasCrm ? 'primary' : 'secondary'} 
-                                        onClick={() => updateField('hasCrm', true)}
-                                        className="flex-1"
+                    {currentStep === 2 && (
+                        <div className="space-y-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-3">
+                                    <Label className="text-base">CRM tizimi bormi?</Label>
+                                    <RadioGroup 
+                                        value={formData.hasCrm ? "yes" : "no"} 
+                                        onValueChange={(val) => updateField('hasCrm', val === "yes")}
+                                        className="flex gap-4"
                                     >
-                                        Mavjud
-                                    </Button>
-                                    <Button 
-                                        type="button"
-                                        variant={!formData.hasCrm ? 'primary' : 'secondary'} 
-                                        onClick={() => updateField('hasCrm', false)}
-                                        className="flex-1"
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="yes" id="crm-yes" />
+                                            <Label htmlFor="crm-yes">Mavjud</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="no" id="crm-no" />
+                                            <Label htmlFor="crm-no">Yo'q</Label>
+                                        </div>
+                                    </RadioGroup>
+                                </div>
+                                <div className="space-y-3">
+                                    <Label className="text-base">Sotuv bo'limi bormi?</Label>
+                                     <RadioGroup 
+                                        value={formData.hasSalesTeam ? "yes" : "no"} 
+                                        onValueChange={(val) => updateField('hasSalesTeam', val === "yes")}
+                                        className="flex gap-4"
                                     >
-                                        Yo'q
-                                    </Button>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="yes" id="sales-yes" />
+                                            <Label htmlFor="sales-yes">Ha</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="no" id="sales-no" />
+                                            <Label htmlFor="sales-no">Yo'q</Label>
+                                        </div>
+                                    </RadioGroup>
                                 </div>
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Sotuv bo'limi bormi?</label>
-                                <div className="flex gap-2">
-                                    <Button 
-                                        type="button"
-                                        variant={formData.hasSalesTeam ? 'primary' : 'secondary'} 
-                                        onClick={() => updateField('hasSalesTeam', true)}
-                                        className="flex-1"
-                                    >
-                                        Ha
-                                    </Button>
-                                    <Button 
-                                        type="button"
-                                        variant={!formData.hasSalesTeam ? 'primary' : 'secondary'} 
-                                        onClick={() => updateField('hasSalesTeam', false)}
-                                        className="flex-1"
-                                    >
-                                        Yo'q
-                                    </Button>
-                                </div>
+
+                            <div className="space-y-3">
+                                 <Label className="text-base">Ijtimoiy tarmoqlar holati?</Label>
+                                 <div className="grid grid-cols-3 gap-4">
+                                    {(['good', 'bad', 'none'] as const).map((status) => (
+                                        <Button
+                                            key={status}
+                                            type="button"
+                                            variant={formData.socialMediaStatus === status ? 'default' : 'outline'}
+                                            onClick={() => updateField('socialMediaStatus', status)}
+                                            className="h-12 capitalize"
+                                        >
+                                            {status === 'good' ? "Zo'r" : status === 'bad' ? "O'rtacha" : "Yo'q"}
+                                        </Button>
+                                    ))}
+                                 </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <Label htmlFor="platform">Asosiy reklama platformangiz?</Label>
+                                <Input 
+                                    id="platform"
+                                    placeholder="Instagram, Facebook, Google..."
+                                    value={formData.platform || ''}
+                                    onChange={(e) => updateField('platform', e.target.value)}
+                                    className="h-12 bg-background/50"
+                                />
                             </div>
                         </div>
+                    )}
 
-                        <div className="space-y-2">
-                             <label className="text-sm text-gray-400">Ijtimoiy tarmoqlar holati?</label>
-                             <div className="grid grid-cols-3 gap-2">
-                                {(['good', 'bad', 'none'] as const).map((status) => (
-                                    <Button
-                                        key={status}
-                                        type="button"
-                                        className="capitalize"
-                                        variant={formData.socialMediaStatus === status ? 'primary' : 'secondary'}
-                                        onClick={() => updateField('socialMediaStatus', status)}
-                                    >
-                                        {status === 'good' ? "Zo'r" : status === 'bad' ? "O'rtacha" : "Yo'q"}
-                                    </Button>
-                                ))}
-                             </div>
+                    {currentStep === 3 && (
+                        <div className="space-y-6">
+                            <div className="space-y-3">
+                                <Label htmlFor="revenue">Oylik DAROMAD maqsadingiz? ($)</Label>
+                                <Input 
+                                    id="revenue"
+                                    type="number"
+                                    placeholder="10000"
+                                    value={formData.monthlyRevenueGoal || ''}
+                                    onChange={(e) => updateField('monthlyRevenueGoal', Number(e.target.value))}
+                                    className="h-12 text-lg bg-background/50 font-mono"
+                                />
+                            </div>
+                            <div className="space-y-3">
+                                <Label htmlFor="check">O'rtacha chek miqdori? ($)</Label>
+                                <Input 
+                                    id="check"
+                                    type="number"
+                                    placeholder="60"
+                                    value={formData.avgCheck || ''}
+                                    onChange={(e) => updateField('avgCheck', Number(e.target.value))}
+                                    className="h-12 text-lg bg-background/50 font-mono"
+                                />
+                            </div>
+                             <div className="space-y-3">
+                                <Label htmlFor="conversion">Sotuv konversiyasi (%)</Label>
+                                <Input 
+                                    id="conversion"
+                                    type="number"
+                                    placeholder="30"
+                                    value={formData.conversionRate || ''}
+                                    onChange={(e) => updateField('conversionRate', Number(e.target.value))}
+                                    className="h-12 text-lg bg-background/50 font-mono"
+                                />
+                            </div>
                         </div>
+                    )}
 
-                        <Input 
-                            label="Asosiy reklama platformangiz?" 
-                            placeholder="Instagram, Facebook, Google..."
-                            value={formData.platform || ''}
-                            onChange={(e) => updateField('platform', e.target.value)}
-                        />
-                    </div>
-                )}
+                </motion.div>
+            </AnimatePresence>
 
-                {currentStep === 3 && (
-                    <div className="space-y-4">
-                        <Input 
-                            type="number"
-                            label="Oylik DAROMAD maqsadingiz? ($)" 
-                            placeholder="10000"
-                            value={formData.monthlyRevenueGoal || ''}
-                            onChange={(e) => updateField('monthlyRevenueGoal', Number(e.target.value))}
-                        />
-                        <Input 
-                            type="number"
-                            label="O'rtacha chek miqdori? ($)" 
-                            placeholder="60"
-                            value={formData.avgCheck || ''}
-                            onChange={(e) => updateField('avgCheck', Number(e.target.value))}
-                        />
-                         <Input 
-                            type="number"
-                            label="Sotuv konversiyasi (%)" 
-                            placeholder="30"
-                            value={formData.conversionRate || ''}
-                            onChange={(e) => updateField('conversionRate', Number(e.target.value))}
-                        />
-                    </div>
-                )}
-
-            </motion.div>
-        </AnimatePresence>
-
-        <div className="flex justify-between mt-8 pt-6 border-t border-white/10">
-            <Button 
-                variant="ghost" 
-                onClick={handleBack} 
-                disabled={currentStep === 1}
-                className="text-gray-400 hover:text-white"
-            >
-                <ChevronLeft className="w-5 h-5 mr-1" />
-                Ortga
-            </Button>
-            <Button onClick={handleNext} variant="gradient">
-                {currentStep === 3 ? 'Auditni Yakunlash' : 'Keyingisi'}
-                {currentStep !== 3 && <ChevronRight className="w-5 h-5 ml-1" />}
-            </Button>
-        </div>
-      </div>
+            <div className="flex justify-between mt-8 pt-6 border-t border-border">
+                <Button 
+                    variant="ghost" 
+                    onClick={handleBack} 
+                    disabled={currentStep === 1}
+                >
+                    <ChevronLeft className="w-4 h-4 mr-2" />
+                    Ortga
+                </Button>
+                <Button onClick={handleNext} variant="gradient" size="lg" className="px-8">
+                    {currentStep === 3 ? 'Auditni Yakunlash' : 'Keyingisi'}
+                    {currentStep !== 3 && <ChevronRight className="w-4 h-4 ml-2" />}
+                </Button>
+            </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

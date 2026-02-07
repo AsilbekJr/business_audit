@@ -1,0 +1,57 @@
+src/components/ui/button.tsx(44,16): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/card.tsx(1,1): error TS6133: 'forwardRef' is declared but its value is never read.
+src/components/ui/card.tsx(5,14): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/card.tsx(20,20): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/card.tsx(32,19): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/card.tsx(44,25): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/card.tsx(56,21): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/card.tsx(64,20): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/components/ui/input.tsx(1,1): error TS6133: 'forwardRef' is declared but its value is never read.
+src/components/ui/input.tsx(5,15): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+vite.config.ts(7,22): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Type 'Plugin$1<any>[]' is not assignable to type 'PluginOption'.
+      Type 'Plugin$1<any>[]' is not assignable to type 'PluginOption[]'.
+        Type 'Plugin$1<any>' is not assignable to type 'PluginOption'.
+          Type 'Plugin$1<any>' is not assignable to type 'Plugin<any>'.
+            Types of property 'hotUpdate' are incompatible.
+              Type 'import("C:/Users/Asilbek/node_modules/rollup/dist/rollup").ObjectHook<(this: import("C:/Users/Asilbek/node_modules/rollup/dist/rollup").MinimalPluginContext & { ...; }, options: import("C:/Users/Asilbek/node_modules/vite/dist/node/index").HotUpdateOptions) => void | ... 1 more ... | Promise<...>> | undefined' is not assignable to type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/rollup/dist/rollup").ObjectHook<(this: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/rollup/dist/rollup").MinimalPluginContext & { ...; }, options: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/vite/dist/node/index").HotUpdate...'.
+                Type '(this: MinimalPluginContext & { environment: DevEnvironment; }, options: HotUpdateOptions) => void | EnvironmentModuleNode[] | Promise<...>' is not assignable to type 'ObjectHook<(this: MinimalPluginContext & { environment: DevEnvironment; }, options: HotUpdateOptions) => void | EnvironmentModuleNode[] | Promise<...>> | undefined'.
+                  Type '(this: import("C:/Users/Asilbek/node_modules/rollup/dist/rollup").MinimalPluginContext & { ...; }, options: import("C:/Users/Asilbek/node_modules/vite/dist/node/index").HotUpdateOptions) => void | ... 1 more ... | Promise<...>' is not assignable to type '(this: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/rollup/dist/rollup").MinimalPluginContext & { ...; }, options: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/vite/dist/node/index").HotUpdateOptions) => void | ... 1 more ... | Promise<...>'.
+                    The 'this' types of each signature are incompatible.
+                      Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/rollup/dist/rollup").MinimalPluginContext & { environment: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/vite/dist/node/index").DevEnvironment; }' is not assignable to type 'import("C:/Users/Asilbek/node_modules/rollup/dist/rollup").MinimalPluginContext & { environment: import("C:/Users/Asilbek/node_modules/vite/dist/node/index").DevEnvironment; }'.
+                        Type 'MinimalPluginContext & { environment: DevEnvironment; }' is not assignable to type 'MinimalPluginContext'.
+                          Types of property 'environment' are incompatible.
+                            Type 'DevEnvironment' is not assignable to type 'Environment'.
+                              Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/vite/dist/node/index").DevEnvironment' is not assignable to type 'import("C:/Users/Asilbek/node_modules/vite/dist/node/index").DevEnvironment'.
+                                Types of property 'depsOptimizer' are incompatible.
+                                  Type 'DepsOptimizer | undefined' is not assignable to type 'DepsOptimizer | undefined'. Two different types with this name exist, but they are unrelated.
+                                    Type 'DepsOptimizer' is not assignable to type 'DepsOptimizer'. Two different types with this name exist, but they are unrelated.
+                                      Types of property 'options' are incompatible.
+                                        Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/vite/dist/node/index").DepOptimizationOptions' is not assignable to type 'import("C:/Users/Asilbek/node_modules/vite/dist/node/index").DepOptimizationOptions'.
+                                          Type 'DepOptimizationOptions' is not assignable to type 'DepOptimizationConfig'.
+                                            Types of property 'esbuildOptions' are incompatible.
+                                              Type 'Omit<import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").BuildOptions, "bundle" | "entryPoints" | "external" | "write" | "watch" | "outdir" | "outfile" | "outbase" | "outExtension" | "metafile"> | undefined' is not assignable to type 'Omit<import("C:/Users/Asilbek/node_modules/esbuild/lib/main").BuildOptions, "bundle" | "entryPoints" | "external" | "write" | "watch" | "outdir" | "outfile" | "outbase" | "outExtension" | "metafile"> | undefined'.
+                                                Type 'Omit<import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").BuildOptions, "bundle" | "entryPoints" | "external" | "write" | "watch" | "outdir" | "outfile" | "outbase" | "outExtension" | "metafile">' is not assignable to type 'Omit<import("C:/Users/Asilbek/node_modules/esbuild/lib/main").BuildOptions, "bundle" | "entryPoints" | "external" | "write" | "watch" | "outdir" | "outfile" | "outbase" | "outExtension" | "metafile">'.
+                                                  Types of property 'plugins' are incompatible.
+                                                    Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").Plugin[] | undefined' is not assignable to type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").Plugin[] | undefined'.
+                                                      Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").Plugin[]' is not assignable to type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").Plugin[]'.
+                                                        Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").Plugin' is not assignable to type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").Plugin'.
+                                                          Types of property 'setup' are incompatible.
+                                                            Type '(build: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").PluginBuild) => void | Promise<void>' is not assignable to type '(build: import("C:/Users/Asilbek/node_modules/esbuild/lib/main").PluginBuild) => void | Promise<void>'.
+                                                              Types of parameters 'build' and 'build' are incompatible.
+                                                                Type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").PluginBuild' is not assignable to type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").PluginBuild'.
+                                                                  The types of 'initialOptions.plugins' are incompatible between these types.
+                                                                    Type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").Plugin[] | undefined' is not assignable to type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").Plugin[] | undefined'.
+                                                                      Type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").Plugin[]' is not assignable to type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").Plugin[]'.
+                                                                        Type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").Plugin' is not assignable to type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").Plugin'.
+                                                                          Types of property 'setup' are incompatible.
+                                                                            Type '(build: import("C:/Users/Asilbek/node_modules/esbuild/lib/main").PluginBuild) => void | Promise<void>' is not assignable to type '(build: import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").PluginBuild) => void | Promise<void>'.
+                                                                              Types of parameters 'build' and 'build' are incompatible.
+                                                                                Type 'import("C:/Users/Asilbek/Desktop/vibe1/Business/node_modules/esbuild/lib/main").PluginBuild' is not assignable to type 'import("C:/Users/Asilbek/node_modules/esbuild/lib/main").PluginBuild'.
+                                                                                  The types of 'initialOptions.entryPoints' are incompatible between these types.
+                                                                                    Type 'Record<string, string> | (string | { in: string; out: string; })[] | undefined' is not assignable to type 'string[] | Record<string, string> | { in: string; out: string; }[] | undefined'.
+                                                                                      Type '(string | { in: string; out: string; })[]' is not assignable to type 'string[] | Record<string, string> | { in: string; out: string; }[] | undefined'.
+                                                                                        Type '(string | { in: string; out: string; })[]' is not assignable to type 'string[]'.
+                                                                                          Type 'string | { in: string; out: string; }' is not assignable to type 'string'.
+                                                                                            Type '{ in: string; out: string; }' is not assignable to type 'string'.
